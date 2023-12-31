@@ -1,0 +1,21 @@
+version: "3"
+
+networks:
+  reverse-proxy:
+    name: reverse-proxy
+    external: true
+
+services:
+  server:
+    image: gitea/gitea:1.20.5
+    container_name: gitea
+    hostname: gitea
+    restart: unless-stopped
+    networks:
+      - reverse-proxy
+    volumes:
+      - ./data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    #ports:
+      #- 200:200

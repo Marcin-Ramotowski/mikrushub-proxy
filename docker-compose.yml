@@ -1,0 +1,19 @@
+version: '3.7'
+
+networks:
+  reverse-proxy:
+    external: true
+
+services:
+  web:
+    image: nginx
+    container_name: reverse-proxy
+    volumes:
+      - ./landing_page:/usr/share/nginx/landing_page
+      - ./proxy.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - reverse-proxy
+    ports:
+      - "80:80"
+    environment:
+      - NGINX_HOST=mikrushub.pl

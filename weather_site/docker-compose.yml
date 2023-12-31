@@ -1,0 +1,15 @@
+version: '3.7'
+
+networks:
+  reverse-proxy:
+    external: true
+
+services:
+  web:
+    image: php:7.2-apache
+    container_name: weather-page
+    hostname: weather-page
+    networks:
+      - reverse-proxy
+    volumes:
+      - ./files:/var/www/html
