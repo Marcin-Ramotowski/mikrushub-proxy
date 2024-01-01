@@ -1,29 +1,21 @@
 version: '3.7'
 
+networks:
+  reverse-proxy:
+    external: true
+
 services:
   jenkins:
+    build:
+      context: .
     container_name: jenkins
-    image: jenkins/jenkins:lts
+    hostname: jenkins
     restart: unless-stopped
     privileged: true
     user: root
-    ports:
-      - 8080:8080
-    hostname: jenkins
+    networks:
+      - reverse-proxy
     volumes:
       - ./jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/ssl/certs:/etc/ssl/certs
-    deploy:
-      resources:
-        limits:
-          cpus: '0.9'
-          memory: '512M'
-#  agent:
-#    container_name: jenkins-agent
-#    image: jenkins/ssh-agent:alpine-jdk17
-#    restart: unless-stopped
-#    privileged: true
-#    user: root
-#    env_file:
-#      - .env
