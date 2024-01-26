@@ -2,7 +2,6 @@ version: "3"
 
 networks:
   reverse-proxy:
-    name: reverse-proxy
     external: true
 
 services:
