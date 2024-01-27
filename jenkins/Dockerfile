@@ -1,4 +1,5 @@
 FROM jenkins/jenkins:lts
-COPY get-docker.sh /bin/getdocker
 USER root
-RUN getdocker
+RUN curl -fsSL https://get.docker.com -o get-docker.sh
+RUN chmod u+x get-docker.sh
+RUN ./get-docker.sh
